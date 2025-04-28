@@ -1,10 +1,23 @@
-import { WebPlugin } from '@capacitor/core';
+import { WebPlugin, PluginListenerHandle } from '@capacitor/core';
+import type { JitCallPlugin } from './definitions';
 
-import type { jitCallPlugin } from './definitions';
+export class JitCallWeb extends WebPlugin implements JitCallPlugin {
+	async initialize(): Promise<{ token: string }> {
+		throw this.unimplemented('Not implemented on web.');
+	}
 
-export class jitCallWeb extends WebPlugin implements jitCallPlugin {
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
-  }
+	async startCall(): Promise<void> {
+		throw this.unimplemented('Not implemented on web.');
+	}
+
+	override async addListener(
+		eventName: string | undefined = 'incomingCall',
+		listenerFunc: (data: { meetingId: string; userFrom: string }) => void,
+	): Promise<PluginListenerHandle> {
+		return super.addListener(eventName, listenerFunc);
+	}
+
+	async mockIncomingCall(options: { meetingId: string; userFrom: string }) {
+		this.notifyListeners('incomingCall', options);
+	}
 }

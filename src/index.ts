@@ -1,10 +1,11 @@
 import { registerPlugin } from '@capacitor/core';
+import type { JitCallPlugin } from './definitions';
 
-import type { jitCallPlugin } from './definitions';
+const JitCall = registerPlugin<JitCallPlugin>('JitCall', {
 
-const jitCall = registerPlugin<jitCallPlugin>('jitCall', {
-  web: () => import('./web').then((m) => new m.jitCallWeb()),
+	web: () => import('./web').then((m) => new m.JitCallWeb())
+
 });
 
 export * from './definitions';
-export { jitCall };
+export { JitCall };

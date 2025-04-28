@@ -1,2 +1,42 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+	<application>
+
+		<activity
+
+			android:name=".JitsiActivity"
+			android:exported="false"
+
+		/>
+		
+
+		<service
+
+			android:name=".FCMService"
+
+		>
+			<intent-filter>
+
+				<action android:name="com.google.firebase.MESSAGING_EVENT" />
+
+			</intent-filter>
+
+		</service>
+
+		<receiver android:name=".CallReceiver" />
+		
+		<meta-data
+
+			android:name="com.google.firebase.messaging.default_notification_channel_id"
+			android:value="@string/default_notification_channel_id"
+
+		/>
+
+	</application>
+
 </manifest>
